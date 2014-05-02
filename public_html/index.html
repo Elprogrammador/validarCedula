@@ -14,69 +14,56 @@ and open the template in the editor.
         <h1><center>Ingrese su número completo de cédula sin guión.</center></h1>
         <form id="frmdata" name="frmdata"/>
             <p>Numero "#" de Cedula:<input type="text" name="cedula"  id="cedula"/></p>
-            <input type="button" id="botonValidar" name="botonValidar"  value="Validar" onclick="validarCedula(document.forms[0].cedula.value)" />
+            <input type="button" id="botonValidar" name="botonValidar"  value="Validar" onclick="validarCedula(document.forms[0].cedula.value)"/>
         </form>
     </body>
 </html>
     <script>
-        /*Esta es una funcion para verificar la cedula en el checkbox de lapagina*/
-        function validarCedula( form )
+        function validarCedula(form)
         {
             var cedula = form;
             arrayCedula = cedula.split( "" );
             var num = arrayCedula.length;
-            //alert("tamaño cedula"+num)
             if ( num == 10 )
             {
-                
                 var totalImpar=0;
-                var UltimoDigito = (arrayCedula[9]);
-                var totalPar = 0;
-                //alert("El ultimo digito"+UltimoDigito);
-                for( i=0; i < (num-1); i++ )//se opera con todos menos con el ultimo digito
+                var UltimoDigito=(arrayCedula[9]);
+                var totalPar=0;
+                for( i=0; i<(num-1); i++)
                 {
                   var mult = 0;
-                  if ( ( i%2 ) != 0 ) { //Si es par la posición, empezando de 1, no de 0
-                    
-                    var totalPar = totalPar + ( arrayCedula[i] *1); 
-                    //alert("total par" + totalPar);
+                  if((i%2)!=0){ 
+                    var totalPar = totalPar + (arrayCedula[i]*1);                    
                   }
-                  else // es impar la posicion empezando por 1, se multiplica *2
+                  else 
                   {
-                    mult = arrayCedula[i] * 2;
-                    //alert("multiplicacion es"+mult);
-                        if ( mult > 9 ){ //si la multiplicación resulta mas de 9, se resta 9
-                          totalImpar = parseInt(totalImpar + ( mult - 9 ));
-                          //alert("total sin 9"+totalImpar);
+                    mult = arrayCedula[i] * 2;                   
+                        if ( mult > 9 ){ 
+                          totalImpar = parseInt(totalImpar+(mult-9));                          
                         }else{
-                            totalImpar = parseInt(totalImpar + mult);
+                            totalImpar=parseInt(totalImpar+mult);
                         }
-                  }
-                  //alert("total Impar"+totalImpar);
-                  //alert("total Par"+totalPar);
+                  }                  
                 }
-                var Total= parseInt(totalPar + totalImpar);
-                decena = Total / 10;
-                //alert("el Total es "+ Total);
-                decena = Math.floor( decena );//coge solo el entero
-                //alert("la decena es "+ decena);
-                decena = ( decena + 1 ) * 10;
-                //alert("la decena es "+ decena);
-                final = ( decena - Total );
-                //alert("el último digito es  "+ final);
+                var Total=parseInt(totalPar+totalImpar);
+                decena=Total/10;                
+                decena=Math.floor( decena );
+                decena=(decena+1)*10;
+                
+                final = (decena-Total);
                 if ( ( final == 10 && UltimoDigito == 0 ) || ( final == UltimoDigito ) ) {
-                  alert( "El número de cédula es correcto" );
+                  alert( "El número de cédula ingresado es correcto" );
                   return true;
                 }
                 else
                 {
-                  alert( "Número de cédula incorrecto, último digito debe ser: " +final );
+                  alert( "Número de cédula ingresado es incorrecto, último digito debe ser: " +final );
                   return false;
                 }
             }
             else
             {
-              alert("Digitos de cédula incorrecta, verifique nº de digitos");
+              alert("Digitos de cédula ingresados incorrecta, verifique el número de digitos");
               return false;
             }
           }
